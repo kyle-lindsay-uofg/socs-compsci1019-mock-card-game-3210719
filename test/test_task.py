@@ -28,6 +28,8 @@ class test_task(unittest.TestCase):
     def test_get_csv_rows(self, mock_open):
         self.assertEqual(LoadCSV.get_csv_rows('file.txt')[1][0], 'Xi')
 
-    def test_play_a_card_from_deck_random(self):
-        #Sub-task 5 – Mock Get Player Names
-        pass
+    @patch('card_game.card.entity.Deck.random.randint', return_value=0)
+    def test_play_a_card_from_deck_random(self, mock_random):
+        deck = create_deck()
+        first_card = deck[0]
+        self.assertEqual(play_a_card_from_deck(deck), first_card)
