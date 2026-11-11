@@ -17,9 +17,11 @@ class test_task(unittest.TestCase):
     def test_get_game_info(self, mock_input):
         self.assertEqual(Game.get_game_info(), ('Derek', 3)) # returns name and number of players, so 'Derek' and 3, not just 3
 
-    def test_get_integer_max_attempts(self):
-        #Sub-task 3 – Mock Console Input With Built In
-        pass
+    @patch('builtins.input', return_value='abc')
+    def test_get_integer_max_attempts(self, mock_get_string):
+        self.assertEqual(ConsoleInOut.get_integer(), -1)
+        mock_get_string.assert_called()
+        self.assertEqual(mock_get_string.call_count, 5)
 
     def test_get_csv_rows(self):
         #Sub-task 4 – Mock File Load
