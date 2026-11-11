@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+from card_game.communication import ConsoleInOut
 from card_game.communication.ConsoleInOut import *
 from card_game.card.entity.Deck import *
 from card_game.Game import *
@@ -7,9 +8,9 @@ from card_game.LoadCSV import *
 
 class test_task(unittest.TestCase):
 
-    def test_get_input_integer(self):
-        #Sub-task 1: Mock Console Input Integer
-        pass
+    @patch('builtins.input', return_value='18')
+    def test_get_input_integer(self, mock_input):
+        self.assertEqual(ConsoleInOut.get_input_integer('message'), 18)
 
     def test_get_game_info(self):
         #Sub-task 2 – Mock Console Game Info
