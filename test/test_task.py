@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import mock_open, patch
 from card_game import Game
+from card_game import LoadCSV
 from card_game.communication import ConsoleInOut
 from card_game.communication.ConsoleInOut import *
 from card_game.card.entity.Deck import *
@@ -23,9 +24,9 @@ class test_task(unittest.TestCase):
         mock_get_string.assert_called()
         self.assertEqual(mock_get_string.call_count, 5)
 
-    def test_get_csv_rows(self):
-        #Sub-task 4 – Mock File Load
-        pass
+    @patch("builtins.open", new_callable=mock_open, read_data='Derek\nXi')
+    def test_get_csv_rows(self, mock_open):
+        self.assertEqual(LoadCSV.get_csv_rows('file.txt')[1][0], 'Xi')
 
     def test_play_a_card_from_deck_random(self):
         #Sub-task 5 – Mock Get Player Names
