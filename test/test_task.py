@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+from card_game import Game
 from card_game.communication import ConsoleInOut
 from card_game.communication.ConsoleInOut import *
 from card_game.card.entity.Deck import *
@@ -12,9 +13,9 @@ class test_task(unittest.TestCase):
     def test_get_input_integer(self, mock_input):
         self.assertEqual(ConsoleInOut.get_input_integer('message'), 18)
 
-    def test_get_game_info(self):
-        #Sub-task 2 – Mock Console Game Info
-        pass
+    @patch('builtins.input', side_effect=['Derek', '3'])
+    def test_get_game_info(self, mock_input):
+        self.assertEqual(Game.get_game_info(), ('Derek', 3)) # returns name and number of players, so 'Derek' and 3, not just 3
 
     def test_get_integer_max_attempts(self):
         #Sub-task 3 – Mock Console Input With Built In
